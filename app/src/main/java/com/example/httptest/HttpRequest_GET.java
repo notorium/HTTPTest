@@ -33,7 +33,8 @@ public class HttpRequest_GET extends AsyncTask<String, Void, JSONObject> {
             URL url = new URL(params[0]);
             con = (HttpURLConnection) url.openConnection();
             InputStream stream = con.getInputStream();
-
+            System.out.println(con);
+            con.connect();
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
             String line = "";
             while ((line = reader.readLine()) != null)
@@ -43,12 +44,15 @@ public class HttpRequest_GET extends AsyncTask<String, Void, JSONObject> {
             json = new JSONObject(builder.toString());
 
         } catch (IOException e) {
+            System.out.println(e);
             e.printStackTrace();
         } catch (JSONException e) {
+            System.out.println(e);
             e.printStackTrace();
-        } finally{
+        } finally {
             con.disconnect();
         }
+
 
         return json;
     }
@@ -70,6 +74,8 @@ public class HttpRequest_GET extends AsyncTask<String, Void, JSONObject> {
             ((TextView) mActivity.findViewById(R.id.textview)).setText(builder.toString());
         } catch (JSONException e) {
             e.printStackTrace();
+            ((TextView) mActivity.findViewById(R.id.textview)).setText("通信に失敗しました");
+            System.out.println(e);
         }
     }
 }
