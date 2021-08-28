@@ -14,14 +14,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class AsyncHttpRequest extends AsyncTask<String, Void, JSONObject> {
+public class HttpRequest_POST extends AsyncTask<String, Void, JSONObject> {
     private Activity mActivity;
+    private String str;
 
-    public AsyncHttpRequest(Activity activity) {
+    public HttpRequest_POST(Activity activity, String string) {
         mActivity = activity;
+        str = string;
     }
 
     @Override
@@ -32,12 +35,15 @@ public class AsyncHttpRequest extends AsyncTask<String, Void, JSONObject> {
         try {
             URL url = new URL(params[0]);
             con = (HttpURLConnection) url.openConnection();
-            InputStream stream = con.getInputStream();
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
-            String line = "";
-            while ((line = reader.readLine()) != null)
-                builder.append(line);
+            OutputStream stream = con.getOutputStream();
+            stream.write(str.getBytes());
+            stream.flush();
+            stream.close();
+            int status = con.getResponseCode();
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
+//            String line = "";
+//            while ((line = reader.readLine()) != null)
+//                builder.append(line);
             stream.close();
 
             json = new JSONObject(builder.toString());
@@ -46,7 +52,7 @@ public class AsyncHttpRequest extends AsyncTask<String, Void, JSONObject> {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
-        } finally{
+        } finally {
             con.disconnect();
         }
 
