@@ -10,8 +10,7 @@ public class MainActivity extends AppCompatActivity {
 
     private HttpRequest_GET httpreq; // 追加
     private HttpRequest_POST httpreq2;
-    private EditText editText;
-    private EditText editText2;
+    private EditText editText, editText2, editText3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,17 +18,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         editText = findViewById(R.id.editText);
         editText2 = findViewById(R.id.editText2);
+        editText3 = findViewById(R.id.editText3);
     }
 
     public void getdata(View v) {
         httpreq = new HttpRequest_GET(this); // 追加
-        httpreq.execute("http://localhost:8000/Zazen/test.json"); // 追加
+        httpreq.execute("http://fukuiohr2.sakura.ne.jp/2021/Zazen/test.json"); // 追加
     }
 
     public void postdata(View v) {
-        String str = "{\"val1\":\"" + editText.getText().toString() +
-                "\",\"val2\":\"" + editText2.getText().toString() + "\"}";
+        String str = "{\"id\":\"" + editText.getText().toString() +
+                "\",\"name\":\"" + editText2.getText().toString() +
+                "\",\"pass\":\"" + editText3.getText().toString() + "\"}";
         httpreq2 = new HttpRequest_POST(this, str);
-        httpreq2.execute("http://localhost:8000/Zazen/test.php");
+        httpreq2.execute("http://fukuiohr2.sakura.ne.jp/2021/Zazen/test.php");
     }
 }

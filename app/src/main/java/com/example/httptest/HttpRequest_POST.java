@@ -76,24 +76,17 @@ public class HttpRequest_POST extends AsyncTask<String, Void, JSONObject> {
     }
 
     public void onPostExecute(JSONObject json) {
-//        StringBuilder builder = new StringBuilder();
-//        try {
-//            JSONArray array = json.getJSONArray("profile");
-//            for (int i = 0; i < array.length(); i++) {
-//                JSONObject obj = array.getJSONObject(i);
-//                builder.append(obj.getString("no") + "\n");
-//                builder.append(obj.getString("name") + "\n");
-//                builder.append(obj.getJSONObject("address").getString("state"));
-//                builder.append(obj.getJSONObject("address").getString("city"));
-//                builder.append(obj.getJSONObject("address").getString("address1") + "\n");
-//                builder.append(obj.getString("phone") + "\n");
-//                builder.append(obj.getString("mail") + "\n");
-//            }
-//            ((TextView) mActivity.findViewById(R.id.textview)).setText(builder.toString());
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+        StringBuilder builder = new StringBuilder();
+        try {
+            JSONObject array = json.getJSONObject("result");
+            builder.append(array.getString("id") + "\n");
+            builder.append(array.getString("name") + "\n");
+            builder.append(array.getString("pass") + "\n");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            builder.append("");
+        }
         System.out.println(json);
-        ((TextView) mActivity.findViewById(R.id.textview)).setText(json.toString());
+        ((TextView) mActivity.findViewById(R.id.textview)).setText(builder.toString());
     }
 }
