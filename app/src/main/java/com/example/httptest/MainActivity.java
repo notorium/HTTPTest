@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void getdata(View v) {
         httpreq = new HttpRequest_GET(this); // 追加
-        httpreq.execute("http://fukuiohr2.sakura.ne.jp/2021/Zazen/test.json"); // 追加
+        httpreq.execute("http://fukuiohr2.sakura.ne.jp/2021/Zazen/test2.php"); // 追加
     }
 
     public void postdata(View v) {
